@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c50e309d-d3f2-4ba0-a793-05198bfc8a34" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/postgresql_42_5_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ORM1.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SupportedTypes.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/createscript.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/features" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/demo/Angajat.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/demo/MData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/demo/Persoana.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orm/ConnectionManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orm/ORM.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orm/annotations/AutoInc.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orm/annotations/Entity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orm/annotations/NotNull.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orm/annotations/PK.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orm/annotations/rules/Cascade.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orm/annotations/rules/NoAction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orm/annotations/rules/SetNull.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orm/classparser/PropertyChecker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orm/classparser/PropertyParser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orm/exceptions/ForeignKeyException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orm/exceptions/OrmException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orm/exceptions/PrimaryKeyExceprion.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orm/exceptions/TypeConversionFailedException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orm/sql/DDLWriter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orm/sql/JavaSQLMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tries/model_handle/Try1.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Interface" />
+        <option value="AnnotationType" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2KvPNr7EJFao7D7ApkompOPJaKe" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "jdk.selected.JAVA_MODULE": "11",
+    "last_opened_file_path": "C:/Users/aerap/Desktop/MAP/postgresql-42.5.0.jar",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.41724136"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "sqlserver",
+      "sqlserver.localdb",
+      "postgresql"
+    ],
+    "RunConfigurationTargetLRU": [
+      "cdacd7ad-eae2-4c9b-a94e-94b7708d3560/database/\"TestORM\"/schema/\"public\""
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="models.demo" />
+      <recent name="" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Try1">
+    <configuration name="Try1" type="Application" factoryName="Application">
+      <option name="ALTERNATIVE_JRE_PATH" value="$PROJECT_DIR$/../../../../../Program Files/Java/jdk-11.0.16.1" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="tries.model_handle.Try1" />
+      <module name="ORM1" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="createscript.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
+      <script-file value="$PROJECT_DIR$/createscript.sql" />
+      <script-mode>FILE</script-mode>
+      <data-source id="cdacd7ad-eae2-4c9b-a94e-94b7708d3560" namespace="database/&quot;TestORM&quot;/schema/&quot;public&quot;" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Database Script.createscript.sql" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c50e309d-d3f2-4ba0-a793-05198bfc8a34" name="Changes" comment="" />
+      <created>1674852048308</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1674852048308</updated>
+      <workItem from="1674852049807" duration="11200000" />
+      <workItem from="1674985272212" duration="8616000" />
+      <workItem from="1674995055892" duration="9113000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/ORM1$Try1.ic" NAME="Try1 Coverage Results" MODIFIED="1674853471212" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>tries.model_handle.*</FILTER>
+    </SUITE>
+  </component>
+</project>

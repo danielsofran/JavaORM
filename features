@@ -1,0 +1,12 @@
+tipuri suportate
+
+-mostenire DONE
+
+-foreign keys DONE
+
+-int
+-string
+-boolean
+-double
+-datetime
+
