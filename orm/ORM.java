@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 
 public class ORM {
     ConnectionManager connectionManager;
-    List<DDLWriter> writers;
 
     public ORM(ConnectionManager connectionManager)
     {
@@ -25,10 +24,10 @@ public class ORM {
     }
 
     public void createTables(Class<?>... classes) throws OrmException, SQLException {
-        this.writers = Arrays.stream(classes).sorted(ORM::sortClasses).map(DDLWriter::new).collect(Collectors.toList());
+        List<DDLWriter> writers = Arrays.stream(classes).sorted(ORM::sortClasses).map(DDLWriter::new).collect(Collectors.toList());
         if(writers.size() == 0)
             return;
-        PropertyParser<?> first = this.writers.get(0).getParser();
+        PropertyParser<?> first = writers.get(0).getParser();
         if(first.getNrAllFK() != 1)
         {
             String fk = first.getFKs().stream()
@@ -44,7 +43,7 @@ public class ORM {
     }
 
     public void dropTables(Class<?>... classes) throws SQLException {
-        this.writers = Arrays.stream(classes).sorted(ORM::sortClasses).map(DDLWriter::new).collect(Collectors.toList());
+        List<DDLWriter> writers = Arrays.stream(classes).sorted(ORM::sortClasses).map(DDLWriter::new).collect(Collectors.toList());
         Collections.reverse(writers);
         for(DDLWriter sqlScript : writers)
         {

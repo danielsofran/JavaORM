@@ -47,8 +47,8 @@ public class PropertyParser<T extends Class<?>> {
         if(checkClassRecursion(the_class)) {
             List<Field> current = (Arrays.stream(the_class.getDeclaredFields()).collect(Collectors.toList()));
             List<Field> next = getFieldsRec(the_class.getSuperclass());
-            current.addAll(next);
-            return current;
+            next.addAll(current);
+            return next;
         }
         return new LinkedList<>();
     }
