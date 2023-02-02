@@ -4,16 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c50e309d-d3f2-4ba0-a793-05198bfc8a34" name="Changes" comment="create v1">
-      <change afterPath="$PROJECT_DIR$/orm/classparser/MethodCaller.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/orm/exceptions/MethodNotFoundException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/orm/sql/SelectWriter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tries/model_handle/TrySelect.java" afterDir="false" />
+    <list default="true" id="c50e309d-d3f2-4ba0-a793-05198bfc8a34" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/orm/exceptions/ScriptWriterException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orm/sql/InsertWriter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/demo/MData.java" beforeDir="false" afterPath="$PROJECT_DIR$/models/demo/MData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/orm/ORM.java" beforeDir="false" afterPath="$PROJECT_DIR$/orm/ORM.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orm/classparser/PropertyParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/orm/classparser/PropertyParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tries/model_handle/Try1.java" beforeDir="false" afterPath="$PROJECT_DIR$/tries/model_handle/Try1.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +74,7 @@
   </component>
   <component name="RunManager" selected="Application.TrySelect">
     <configuration name="Try1" type="Application" factoryName="Application">
-      <option name="ALTERNATIVE_JRE_PATH" value="$PROJECT_DIR$/../../../../../Program Files/Java/jdk-11.0.16.1" />
+      <option name="ALTERNATIVE_JRE_PATH" value="$USER_HOME$/Program Files/Java/jdk-11.0.16.1" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="tries.model_handle.Try1" />
       <module name="ORM1" />
@@ -123,6 +118,7 @@
       <workItem from="1674985272212" duration="8616000" />
       <workItem from="1674995055892" duration="9353000" />
       <workItem from="1675370851073" duration="7048000" />
+      <workItem from="1675378475376" duration="2877000" />
     </task>
     <task id="LOCAL-00001" summary="create v1">
       <created>1675004329915</created>
@@ -153,10 +149,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="create v1" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/ORM1$TrySelect.ic" NAME="TrySelect Coverage Results" MODIFIED="1675377223409" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/ORM1$Try1.ic" NAME="Try1 Coverage Results" MODIFIED="1674853471212" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>tries.model_handle.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/ORM1$Try1.ic" NAME="Try1 Coverage Results" MODIFIED="1674853471212" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/ORM1$TrySelect.ic" NAME="TrySelect Coverage Results" MODIFIED="1675377223409" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>tries.model_handle.*</FILTER>
     </SUITE>
   </component>
