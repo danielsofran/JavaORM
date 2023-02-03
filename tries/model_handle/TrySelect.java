@@ -12,6 +12,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class TrySelect {
     static void test_ctor() throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, OrmException, SQLException {
@@ -66,15 +67,22 @@ public class TrySelect {
         String sql = InsertWriter.getInsertSQL(ora);
         System.out.println(sql);
 
-        //ORM orm = new ORM(new ConnectionManager());
-        //ora = orm.insertValue(ora);
+        ORM orm = new ORM(new ConnectionManager());
+        ora = orm.insert(ora);
+    }
+
+    static void test_select() throws SQLException, OrmException {
+        ORM orm = new ORM(new ConnectionManager());
+        List<Angajat> rez = orm.select(Angajat.class);
+        MData data = orm.select(MData.class, 1);
     }
 
 
     public static void main(String[] args) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, OrmException, SQLException {
-        test_ctor();
+        //test_ctor();
         //test_timestamp();
         //test_insert();
+        test_select();
         //System.out.println(MyEnum.A.toString());
     }
 }

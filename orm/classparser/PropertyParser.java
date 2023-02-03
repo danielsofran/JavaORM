@@ -72,6 +72,7 @@ public class PropertyParser<T extends Class<?>> {
     public List<Field> getFields() { return fields; }
     public List<Field> getPKs() { return PKs; }
     public List<Field> getFKs() { return FKs; }
+    public List<Field> getAutoIncs() { return autoIncs; }
 
     private List<Class<?>> getAllClasses(Class<?> the_class)
     {

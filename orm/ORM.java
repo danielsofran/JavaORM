@@ -8,6 +8,7 @@ import orm.exceptions.PrimaryKeyException;
 import orm.sql.DDLWriter;
 import orm.sql.InsertWriter;
 import orm.sql.JavaSQLMapper;
+import orm.sql.SelectExecutor;
 
 import java.lang.reflect.Field;
 import java.sql.*;
@@ -58,18 +59,18 @@ public class ORM {
         }
     }
 
-    public <T> T insertValue(Object obj) throws OrmException, SQLException {
+    public <T> T insert(Object obj) throws OrmException, SQLException {
         Class<T> the_class = (Class<T>) obj.getClass();
         if(!PropertyChecker.isEntity(the_class)){
             throw new OrmException("Insert: Object class should be with entity annotation");
         }
 
         PropertyParser<Class<T>> parser = new PropertyParser<>(the_class);
-        List<Field> pks = parser.getPKs();
-        if(pks.size()!=1)
-            throw new PrimaryKeyException("Foreign key must have exactly 1 PK!");
-        Field pk = pks.get(0);
-        String sqlType = JavaSQLMapper.getSQLType(pk.getType());
+        List<Field> ais = parser.getAutoIncs();
+        if(ais.size()!=1)
+            throw new PrimaryKeyException("Entity "+the_class.getSimpleName()+" must have exactly 1 Auto Increment field, bat it has "+ais.size()+"!");
+        Field ai = ais.get(0);
+        String sqlType = JavaSQLMapper.getSQLType(ai.getType());
 
         String insertSQL = InsertWriter.getInsertSQL(obj);
         String selectSQL = "SELECT CAST(LASTVAL() AS "+sqlType+")";
@@ -80,11 +81,22 @@ public class ORM {
 
         ResultSet rs = s.executeQuery(selectSQL);
         rs.next();
-        String fname = pk.getName();
+        String fname = ai.getName();
         Object value = rs.getObject(1);
         MethodCaller.callSetter(obj, fname, value);
         rs.close();
         connection.close();
         return the_class.cast(obj);
     }
+
+    public <T> List<T> select(Class<T> table) throws SQLException, OrmException {
+        SelectExecutor se = new SelectExecutor(connectionManager);
+        return se.executeSelectAll(table);
+    }
+
+    public <T> T select(Class<T> table, Object pkValue) throws OrmException, SQLException {
+        SelectExecutor se = new SelectExecutor(connectionManager);
+        return se.findByPK(table, pkValue);
+    }
+
 }
