@@ -28,8 +28,9 @@ public class TrySelect {
 //        String sql = InsertWriter.getInsertSQL(persoana);
 //        System.out.println(sql);
 
-        ORM orm = new ORM(new ConnectionManager());
-        angajat = orm.insertValue(angajat);
+//        ORM orm = new ORM(new ConnectionManager());
+//        angajat = orm.insertValue(angajat);
+        Ore ora = se.findByPK(Ore.class, 1);
     }
 
     static void test_timestamp() throws OrmException, SQLException {
@@ -50,7 +51,7 @@ public class TrySelect {
         ora = se.findByPK(Ore.class, 1);
     }
 
-    static void test_insert() throws OrmException {
+    static void test_insert() throws OrmException, SQLException {
         Ore ora = new Ore();
         ora.setId(1);
         ora.setOra(LocalDateTime.now());
@@ -60,8 +61,13 @@ public class TrySelect {
         ora.setDate(LocalDateTime.now().toLocalDate());
         ora.setTime(LocalDateTime.now().toLocalTime());
 
+        ora.setAlong(3L);
+
         String sql = InsertWriter.getInsertSQL(ora);
         System.out.println(sql);
+
+        //ORM orm = new ORM(new ConnectionManager());
+        //ora = orm.insertValue(ora);
     }
 
 

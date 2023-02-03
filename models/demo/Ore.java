@@ -19,6 +19,20 @@ public class Ore {
     LocalDate date;
     LocalTime time;
 
+    Long aLong;
+
+    public boolean isFlag() {
+        return flag;
+    }
+
+    public Long getAlong() {
+        return aLong;
+    }
+
+    public void setAlong(Long aLong) {
+        this.aLong = aLong;
+    }
+
     public MyEnum getTip() {
         return tip;
     }
@@ -46,6 +60,7 @@ public class Ore {
     }
 
     public boolean getFlag() {
+
         return flag;
     }
 

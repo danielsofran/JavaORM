@@ -4,14 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="14d8e991-8923-4d3c-8584-5d33c46ec93a" name="Changes" comment="MethodCaller pre Select">
+    <list default="true" id="14d8e991-8923-4d3c-8584-5d33c46ec93a" name="Changes" comment="insert done, with return">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/demo/Ore.java" beforeDir="false" afterPath="$PROJECT_DIR$/models/demo/Ore.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orm/ORM.java" beforeDir="false" afterPath="$PROJECT_DIR$/orm/ORM.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orm/classparser/MethodCaller.java" beforeDir="false" afterPath="$PROJECT_DIR$/orm/classparser/MethodCaller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orm/sql/InsertWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/orm/sql/InsertWriter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/orm/sql/JavaSQLMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/orm/sql/JavaSQLMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orm/sql/SelectExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/orm/sql/SelectExecutor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tries/model_handle/TrySelect.java" beforeDir="false" afterPath="$PROJECT_DIR$/tries/model_handle/TrySelect.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -139,7 +135,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675377994755</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="insert done, with return">
+      <created>1675460554270</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1675460554270</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -159,7 +162,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="create v1" />
     <MESSAGE value="MethodCaller pre Select" />
-    <option name="LAST_COMMIT_MESSAGE" value="MethodCaller pre Select" />
+    <MESSAGE value="insert done, with return" />
+    <option name="LAST_COMMIT_MESSAGE" value="insert done, with return" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>

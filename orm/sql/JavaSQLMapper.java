@@ -16,8 +16,8 @@ import java.util.Objects;
 
 public class JavaSQLMapper {
     // Java     SQL
-    static Map<String, String> dict = null;
-    private static void init(){
+    static Map<String, String> dict;
+    static {
         dict = new HashMap<>();
         dict.put("int", "INT");
         dict.put("Integer", "INT");
@@ -35,8 +35,6 @@ public class JavaSQLMapper {
         dict.put("LocalTime", "TIME");
     }
     public static String getSQLType(Class<?> the_class) throws TypeConversionFailedException {
-        if(dict == null)
-            init();
         try {
             String sqlType =  dict.get(the_class.getSimpleName());
             if (sqlType != null)
