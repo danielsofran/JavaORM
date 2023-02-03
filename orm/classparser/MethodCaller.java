@@ -7,9 +7,7 @@ import orm.exceptions.OrmException;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class MethodCaller {
@@ -58,12 +56,13 @@ public class MethodCaller {
         return clazz.cast(returned);
     }
 
-    public static <T> T callGetter(Object instance, String sufix) throws OrmException {
+    public static <T> T callGetter(Object instance, String name) throws OrmException {
         Class<?> clazz = instance.getClass();
+        name=createSufix(name);
         Method method = null;
         do{
             try {
-                method = clazz.getMethod("get" + sufix);
+                method = clazz.getMethod("get" + name);
                 break;
             }
             catch (NoSuchMethodException ne){
@@ -71,7 +70,7 @@ public class MethodCaller {
             }
         } while (!clazz.getSimpleName().equals("Object"));
         if(method == null)
-            throw new MethodNotFoundException("Getter get"+sufix+" of class "+clazz.getSimpleName()+" not found");
+            throw new MethodNotFoundException("Getter get"+name+" of class "+clazz.getSimpleName()+" not found");
         Object returned;
         Class<T> returned_type;
         try{
@@ -81,48 +80,60 @@ public class MethodCaller {
         catch (Exception ex){
             throw new OrmException(ex.getMessage());
         }
-        return returned_type.cast(returned);
+        if(!returned_type.isPrimitive())
+            return returned_type.cast(returned);
+        return (T) returned;
     }
 
-    public static void callSetter(Object instance, String sufix, Object value) throws OrmException {
+    public static void callSetter(Object instance, String name, Object value) throws OrmException {
         Class<?> clazz = instance.getClass();
+        name=createSufix(name);
         Method method = null;
         do{
+            String finalName = name;
             method = Arrays.stream(clazz.getMethods())
                     .filter(m -> m.getParameterCount() == 1)
-                    .filter(m -> m.getName().equals("set"+sufix))
+                    .filter(m -> m.getName().equals("set"+ finalName))
                     .findFirst().orElse(null);
             if(method != null)
                 break;
             clazz = clazz.getSuperclass();
         } while (!clazz.getSimpleName().equals("Object"));
         if(method==null)
-            throw new MethodNotFoundException("Setter set"+sufix+" of class "+clazz.getSimpleName()+" not found");
+            throw new MethodNotFoundException("Setter set"+name+" of class "+clazz.getSimpleName()+" not found");
         try{
             method.invoke(instance, value);
         }
         catch (Exception ex){
             // wrapper class cast problem
             try{
-                Class<?> reqired_type = Arrays.stream(method.getParameterTypes()).findFirst().orElse(null);
-                if(reqired_type == null)
-                    throw new MethodIncorectlyDefinedException("Setter set"+sufix+" of class "+clazz.getSimpleName()+" has wrong parameter!");
-                Object casted = reqired_type.cast(value);
+                Class<?> required_type = Arrays.stream(method.getParameterTypes()).findFirst().orElse(null);
+                if(required_type == null)
+                    throw new MethodIncorectlyDefinedException("Setter set"+name+" of class "+clazz.getSimpleName()+" has wrong parameter!");
+                Object casted = primitiveMap.get(required_type).cast(value);
                 method.invoke(instance, casted);
             }
             catch (Exception ex2)
             {
-                throw new OrmException(ex2.getMessage());
+                throw new OrmException("Setter wrapped class problem in MethodCaller\n"+ex2.getMessage());
             }
         }
     }
 
-    private static Object castToType(Object value, Class<?> type)
+    private final static Map<Class<?>, Class<?>> primitiveMap = new HashMap<Class<?>, Class<?>>();
+    static {
+        primitiveMap.put(boolean.class, Boolean.class);
+        primitiveMap.put(byte.class, Byte.class);
+        primitiveMap.put(short.class, Short.class);
+        primitiveMap.put(char.class, Character.class);
+        primitiveMap.put(int.class, Integer.class);
+        primitiveMap.put(long.class, Long.class);
+        primitiveMap.put(float.class, Float.class);
+        primitiveMap.put(double.class, Double.class);
+    }
+
+    private static String createSufix(String fieldName)
     {
-        if(Objects.equals(type, double.class))
-            return (double) value;
-        if(Objects.equals(type, float.class))
-            return (float) value;
-        return value;
+        return fieldName.substring(0, 1).toUpperCase()+fieldName.substring(1).toLowerCase();
     }
 }

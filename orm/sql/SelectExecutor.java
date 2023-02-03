@@ -49,8 +49,7 @@ public class SelectExecutor {
                     obj = JavaSQLMapper.toJavaValue(obj);
                 else
                     obj = JavaSQLMapper.toJavaEnum(obj, field.getType());
-                String sufix = field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1).toLowerCase();
-                MethodCaller.callSetter(instance, sufix, obj);
+                MethodCaller.callSetter(instance, field.getName(), obj);
             }
         }
         return the_class.cast(instance);

@@ -2,8 +2,10 @@ package tries.model_handle;
 
 import models.demo.*;
 import orm.ConnectionManager;
+import orm.ORM;
 import orm.classparser.MethodCaller;
 import orm.exceptions.OrmException;
+import orm.sql.InsertWriter;
 import orm.sql.SelectExecutor;
 
 import java.lang.reflect.InvocationTargetException;
@@ -22,6 +24,12 @@ public class TrySelect {
         mData = se.findByPK(MData.class, 1);
         Persoana persoana = se.findByPK(Persoana.class, 1);
         Angajat angajat = se.findByPK(Angajat.class, 1);
+
+//        String sql = InsertWriter.getInsertSQL(persoana);
+//        System.out.println(sql);
+
+        ORM orm = new ORM(new ConnectionManager());
+        angajat = orm.insertValue(angajat);
     }
 
     static void test_timestamp() throws OrmException, SQLException {
@@ -42,10 +50,25 @@ public class TrySelect {
         ora = se.findByPK(Ore.class, 1);
     }
 
+    static void test_insert() throws OrmException {
+        Ore ora = new Ore();
+        ora.setId(1);
+        ora.setOra(LocalDateTime.now());
+        ora.setTip(MyEnum.B);
+
+        ora.setFlag(true);
+        ora.setDate(LocalDateTime.now().toLocalDate());
+        ora.setTime(LocalDateTime.now().toLocalTime());
+
+        String sql = InsertWriter.getInsertSQL(ora);
+        System.out.println(sql);
+    }
+
 
     public static void main(String[] args) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, OrmException, SQLException {
-        //test_ctor();
-        test_timestamp();
+        test_ctor();
+        //test_timestamp();
+        //test_insert();
         //System.out.println(MyEnum.A.toString());
     }
 }

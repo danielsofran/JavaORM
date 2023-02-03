@@ -21,13 +21,18 @@ public class JavaSQLMapper {
         dict = new HashMap<>();
         dict.put("int", "INT");
         dict.put("Integer", "INT");
+        dict.put("long", "BIGINT");
+        dict.put("Long", "BIGINT");
         dict.put("String", "VARCHAR");
         dict.put("boolean", "BOOLEAN");
+        dict.put("Boolean", "BOOLEAN"); // TODO
         dict.put("double", "REAL");
         dict.put("float", "REAL");
         dict.put("Double", "REAL");
         dict.put("Float", "REAL");
         dict.put("LocalDateTime", "TIMESTAMP");
+        dict.put("LocalDate", "DATE");
+        dict.put("LocalTime", "TIME");
     }
     public static String getSQLType(Class<?> the_class) throws TypeConversionFailedException {
         if(dict == null)
@@ -48,16 +53,19 @@ public class JavaSQLMapper {
 
     public static String toSQLValue(Object value){
         if(value.getClass().getSimpleName().equals("String"))
-            return "'"+value.toString()+"'";
+            return "'"+ value +"'";
         if(value.getClass().getSimpleName().equals("LocalDateTime"))
-            return "'"+ ((LocalDateTime) value).toString()+"'";
+            return "'"+ ((LocalDateTime) value) +"'";
         if(value.getClass().getSimpleName().equals("LocalDate"))
-            return "'"+ ((LocalDate) value).toString()+"'";
+            return "'"+ ((LocalDate) value) +"'";
         if(value.getClass().getSimpleName().equals("LocalTime"))
-            return "'"+ ((LocalTime) value).toString()+"'";
+            return "'"+ ((LocalTime) value) +"'";
 
         if(value.getClass().isEnum())
-            return "'"+value.toString()+"'";
+            return "'"+ value +"'";
+
+        if(value.getClass().getSimpleName().endsWith("oolean"))
+            return Boolean.valueOf((boolean)value).toString().toUpperCase();
         return value.toString();
     }
 

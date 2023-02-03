@@ -4,23 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c50e309d-d3f2-4ba0-a793-05198bfc8a34" name="Changes" comment="MethodCaller pre Select">
-      <change afterPath="$PROJECT_DIR$/models/demo/MyEnum.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/demo/Ore.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/orm/exceptions/MethodIncorectlyDefinedException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/orm/sql/SelectExecutor.java" afterDir="false" />
+    <list default="true" id="14d8e991-8923-4d3c-8584-5d33c46ec93a" name="Changes" comment="MethodCaller pre Select">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/demo/Angajat.java" beforeDir="false" afterPath="$PROJECT_DIR$/models/demo/Angajat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/demo/MData.java" beforeDir="false" afterPath="$PROJECT_DIR$/models/demo/MData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/demo/Persoana.java" beforeDir="false" afterPath="$PROJECT_DIR$/models/demo/Persoana.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orm/ConnectionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/orm/ConnectionManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/demo/Ore.java" beforeDir="false" afterPath="$PROJECT_DIR$/models/demo/Ore.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/orm/ORM.java" beforeDir="false" afterPath="$PROJECT_DIR$/orm/ORM.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/orm/classparser/MethodCaller.java" beforeDir="false" afterPath="$PROJECT_DIR$/orm/classparser/MethodCaller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orm/exceptions/PrimaryKeyExceprion.java" beforeDir="false" afterPath="$PROJECT_DIR$/orm/exceptions/PrimaryKeyException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orm/sql/DDLWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/orm/sql/DDLWriter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/orm/sql/InsertWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/orm/sql/InsertWriter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/orm/sql/JavaSQLMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/orm/sql/JavaSQLMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orm/sql/SelectWriter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tries/model_handle/Try1.java" beforeDir="false" afterPath="$PROJECT_DIR$/tries/model_handle/Try1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/orm/sql/SelectExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/orm/sql/SelectExecutor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tries/model_handle/TrySelect.java" beforeDir="false" afterPath="$PROJECT_DIR$/tries/model_handle/TrySelect.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -33,13 +24,14 @@
       <list>
         <option value="Interface" />
         <option value="AnnotationType" />
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />

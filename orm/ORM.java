@@ -1,12 +1,16 @@
 package orm;
 
+import orm.classparser.MethodCaller;
 import orm.classparser.PropertyChecker;
 import orm.classparser.PropertyParser;
 import orm.exceptions.OrmException;
+import orm.exceptions.PrimaryKeyException;
 import orm.sql.DDLWriter;
+import orm.sql.InsertWriter;
+import orm.sql.JavaSQLMapper;
 
 import java.lang.reflect.Field;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -52,5 +56,35 @@ public class ORM {
         {
             connectionManager.executeUpdateSql(sqlScript.getDropSQL());
         }
+    }
+
+    public <T> T insertValue(Object obj) throws OrmException, SQLException {
+        Class<T> the_class = (Class<T>) obj.getClass();
+        if(!PropertyChecker.isEntity(the_class)){
+            throw new OrmException("Insert: Object class should be with entity annotation");
+        }
+
+        PropertyParser<Class<T>> parser = new PropertyParser<>(the_class);
+        List<Field> pks = parser.getPKs();
+        if(pks.size()!=1)
+            throw new PrimaryKeyException("Foreign key must have exactly 1 PK!");
+        Field pk = pks.get(0);
+        String sqlType = JavaSQLMapper.getSQLType(pk.getType());
+
+        String insertSQL = InsertWriter.getInsertSQL(obj);
+        String selectSQL = "SELECT CAST(LASTVAL() AS "+sqlType+")";
+
+        Connection connection=connectionManager.getConnection();
+        Statement s = connection.createStatement();
+        s.executeUpdate(insertSQL);
+
+        ResultSet rs = s.executeQuery(selectSQL);
+        rs.next();
+        String fname = pk.getName();
+        Object value = rs.getObject(1);
+        MethodCaller.callSetter(obj, fname, value);
+        rs.close();
+        connection.close();
+        return the_class.cast(obj);
     }
 }
