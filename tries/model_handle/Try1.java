@@ -1,5 +1,6 @@
 package tries.model_handle;
 
+import models.demo.Ore;
 import orm.ConnectionManager;
 import orm.classparser.PropertyChecker;
 import orm.exceptions.OrmException;
@@ -19,8 +20,10 @@ public class Try1 {
         ORM orm = new ORM(new ConnectionManager());
 
         try {
-            orm.dropTables(Persoana.class, MData.class, Angajat.class);
-            orm.createTables(Persoana.class, MData.class, Angajat.class);
+            //orm.dropTables(Persoana.class, MData.class, Angajat.class);
+            //orm.createTables(Persoana.class, MData.class, Angajat.class);
+            orm.dropTables(Ore.class);
+            orm.createTables(Ore.class);
         }
         catch (Exception ex){
             ex.printStackTrace();

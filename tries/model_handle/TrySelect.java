@@ -1,29 +1,51 @@
 package tries.model_handle;
 
-import models.demo.Angajat;
-import models.demo.MData;
+import models.demo.*;
+import orm.ConnectionManager;
 import orm.classparser.MethodCaller;
-import orm.classparser.PropertyParser;
-import orm.exceptions.MethodNotFoundException;
 import orm.exceptions.OrmException;
-import orm.sql.SelectWriter;
+import orm.sql.SelectExecutor;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.math.BigDecimal;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
 
 public class TrySelect {
-    static void test_ctor() throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, OrmException {
-        MethodCaller methodCaller = new MethodCaller();
+    static void test_ctor() throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, OrmException, SQLException {
         MData mData = new MData(1, "str");
-        Object returned = methodCaller.callGetter(new MData(1, "str"), "Data");
+        String returned = MethodCaller.callGetter(new MData(1, "str"), "Data");
         Object id2 = 2;
-        methodCaller.callSetter(mData, "Id", id2);
+        MethodCaller.callSetter(mData, "Id", id2);
+        ConnectionManager conn = new ConnectionManager();
+        SelectExecutor se = new SelectExecutor(conn);
+        mData = se.findByPK(MData.class, 1);
+        Persoana persoana = se.findByPK(Persoana.class, 1);
+        Angajat angajat = se.findByPK(Angajat.class, 1);
     }
 
-    public static void main(String[] args) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, OrmException {
-        test_ctor();
+    static void test_timestamp() throws OrmException, SQLException {
+        Ore ora = new Ore();
+        ora.setId(1);
+        ora.setOra(LocalDateTime.now());
+        ora.setTip(MyEnum.A);
+
+        LocalDateTime localDateTime = MethodCaller.callGetter(ora, "Ora");
+        MethodCaller.callSetter(ora, "Ora", localDateTime);
+
+        MyEnum tip = MethodCaller.callGetter(ora, "Tip");
+        MethodCaller.callSetter(ora, "Tip", MyEnum.B);
+
+        ConnectionManager conn = new ConnectionManager();
+        SelectExecutor se = new SelectExecutor(conn);
+
+        ora = se.findByPK(Ore.class, 1);
+    }
+
+
+    public static void main(String[] args) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, OrmException, SQLException {
+        //test_ctor();
+        test_timestamp();
+        //System.out.println(MyEnum.A.toString());
     }
 }

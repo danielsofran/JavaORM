@@ -3,12 +3,11 @@ package orm.sql;
 import orm.classparser.PropertyChecker;
 import orm.classparser.PropertyParser;
 import orm.exceptions.ForeignKeyException;
-import orm.exceptions.PrimaryKeyExceprion;
+import orm.exceptions.PrimaryKeyException;
 import orm.exceptions.TypeConversionFailedException;
 
 import java.lang.reflect.Field;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class DDLWriter {
 
@@ -28,7 +27,7 @@ public class DDLWriter {
 
     private String createLine(Field field) throws TypeConversionFailedException, ForeignKeyException {
         String rez = "\""+field.getName()+"\" ";
-        String type = JavaSQLMapper.getSQLType(field.getType().getSimpleName());
+        String type = JavaSQLMapper.getSQLType(field.getType());
         if(type != null){
             rez += type;
         }
@@ -38,8 +37,8 @@ public class DDLWriter {
             List<Field> pks = fkParser.getPKs();
             if(pks.size() != 1)
                 throw new ForeignKeyException("Cannot create Foreign Key on table "+fkParser.getName()+" because it does not have exactly 1 Primary Key, but "+pks.size());
-            type = pks.get(0).getType().getSimpleName();
-            rez += JavaSQLMapper.getSQLType(type);
+            Class<?> pktype = pks.get(0).getType();
+            rez += JavaSQLMapper.getSQLType(pktype);
         }
         if(PropertyChecker.isNotNull(field))
             rez += " NOT NULL";
@@ -48,9 +47,9 @@ public class DDLWriter {
         return rez;
     }
 
-    private String createPKs() throws PrimaryKeyExceprion {
+    private String createPKs() throws PrimaryKeyException {
         List<Field> pks = parser.getPKs();
-        if(pks.size() < 1) throw new PrimaryKeyExceprion("Please provide at least 1 Primary Key fro table "+parser.getName());
+        if(pks.size() < 1) throw new PrimaryKeyException("Please provide at least 1 Primary Key fro table "+parser.getName());
         String pk_enum = "";
         for(Field field : pks)
             pk_enum += '"'+field.getName()+"\", ";
@@ -88,7 +87,7 @@ public class DDLWriter {
         return rez;
     }
 
-    public String getCreateSQL() throws TypeConversionFailedException, ForeignKeyException, PrimaryKeyExceprion {
+    public String getCreateSQL() throws TypeConversionFailedException, ForeignKeyException, PrimaryKeyException {
         String rez = "CREATE TABLE \""+parser.getName()+"\"(\n";
         for(Field field : parser.getFields())
             rez += createLine(field)+",\n";

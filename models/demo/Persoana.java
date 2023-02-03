@@ -12,4 +12,30 @@ public class Persoana {
     @Cascade
     MData data;
     private String nume;
+
+    public Persoana() {}
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public MData getData() {
+        return data;
+    }
+
+    public void setData(MData data) {
+        this.data = data;
+    }
+
+    public String getNume() {
+        return nume;
+    }
+
+    public void setNume(String nume) {
+        this.nume = nume;
+    }
 }

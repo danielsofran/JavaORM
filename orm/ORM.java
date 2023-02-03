@@ -4,7 +4,6 @@ import orm.classparser.PropertyChecker;
 import orm.classparser.PropertyParser;
 import orm.exceptions.OrmException;
 import orm.sql.DDLWriter;
-import orm.sql.InsertWriter;
 
 import java.lang.reflect.Field;
 import java.sql.SQLException;
@@ -53,16 +52,5 @@ public class ORM {
         {
             connectionManager.executeUpdateSql(sqlScript.getDropSQL());
         }
-    }
-
-    public void insertValue(Object obj) throws OrmException, SQLException {
-        Class<?> the_class = obj.getClass();
-        if(!PropertyChecker.isEntity(the_class)){
-            throw new OrmException("ORM insert: Object class should be with entity annotation");
-        }
-        List<Field> fields = new PropertyParser<>(the_class).getFields();
-        InsertWriter insertWriter = new InsertWriter(obj.getClass());
-        String script = insertWriter.getInsertSQL(obj);
-        connectionManager.executeUpdateSql(script);
     }
 }

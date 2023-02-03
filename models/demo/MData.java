@@ -10,6 +10,8 @@ public class MData {
     int id;
     String data;
 
+    public MData() {}
+
     public MData(int id, String data) {
         this.id = id;
         this.data = data;

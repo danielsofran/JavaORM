@@ -1,9 +1,6 @@
 package orm;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class ConnectionManager {
     private String url; // jdbc:postgresql://localhost:5432/TestORM
@@ -42,6 +39,10 @@ public class ConnectionManager {
     public void setDatabase(String database)
     {
         url = "jdbc:postgresql://localhost:"+port+"/"+database;
+    }
+
+    public Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(url, username, password);
     }
 
     public void executeUpdateSql(String sql) throws SQLException {
