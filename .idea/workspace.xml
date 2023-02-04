@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="14d8e991-8923-4d3c-8584-5d33c46ec93a" name="Changes" comment="support of null fields&#10;Updated README.md">
-      <change afterPath="$PROJECT_DIR$/orm/exceptions/DataNotFoundException.java" afterDir="false" />
+    <list default="true" id="14d8e991-8923-4d3c-8584-5d33c46ec93a" name="Changes" comment="Updated README.md">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orm/sql/SelectExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/orm/sql/SelectExecutor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tries/model_handle/TrySelect.java" beforeDir="false" afterPath="$PROJECT_DIR$/tries/model_handle/TrySelect.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,7 +122,7 @@
       <workItem from="1675370851073" duration="14415000" />
       <workItem from="1675413189686" duration="13692000" />
       <workItem from="1675498207241" duration="15486000" />
-      <workItem from="1675540283831" duration="5478000" />
+      <workItem from="1675540283831" duration="6210000" />
     </task>
     <task id="LOCAL-00001" summary="create v1">
       <created>1675004329915</created>
@@ -197,7 +194,21 @@
       <option name="project" value="LOCAL" />
       <updated>1675540792888</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="DataNotFoundException&#10;Updated README.md">
+      <created>1675546357965</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1675546357965</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Updated README.md">
+      <created>1675546408264</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1675546408264</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -223,9 +234,10 @@
     <MESSAGE value="floating point(time) equal resolved" />
     <MESSAGE value="added field FK(not aggregated)" />
     <MESSAGE value="insert bug fixed" />
-    <MESSAGE value="Updated README.md" />
     <MESSAGE value="support of null fields&#10;Updated README.md" />
-    <option name="LAST_COMMIT_MESSAGE" value="support of null fields&#10;Updated README.md" />
+    <MESSAGE value="DataNotFoundException&#10;Updated README.md" />
+    <MESSAGE value="Updated README.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated README.md" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>
