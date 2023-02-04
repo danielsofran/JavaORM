@@ -33,12 +33,14 @@ public class TrySelect {
 //
 //        ORM orm = new ORM(new ConnectionManager());
 //        angajat = orm.insertValue(angajat);
-        Ore ora = se.findByPK(Ore.class, 1);
+        Ore ora = se.findByPK(Ore.class, 2);
 
 //        PropertyParser<?> ps = new PropertyParser<>(Angajat.class);
 //        rez = DMLWriter.createSequence(angajat, ps.getFields(), SequenceType.SET);
 //        System.out.println(rez);
         rez = DMLWriter.getDeleteSQL(Ore.class, 1);
+
+        NonAIData data = se.findByPK(NonAIData.class, 1);
 
         System.out.println(rez);
     }
@@ -126,9 +128,9 @@ public class TrySelect {
 
 
     public static void main(String[] args) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, OrmException, SQLException, NoSuchFieldException {
-        //test_ctor();
+        test_ctor();
         //test_timestamp();
-        test_insert();
+        //test_insert();
         //test_insert2();
         //test_select();
         //test_createSeq();

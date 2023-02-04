@@ -4,6 +4,7 @@ import orm.ConnectionManager;
 import orm.classparser.MethodCaller;
 import orm.classparser.PropertyChecker;
 import orm.classparser.PropertyParser;
+import orm.exceptions.DataNotFoundException;
 import orm.exceptions.OrmException;
 import orm.exceptions.PrimaryKeyException;
 import orm.sql.utils.JavaSQLMapper;
@@ -35,8 +36,9 @@ public class SelectExecutor {
         try(Connection connection = connectionManager.getConnection();
             PreparedStatement statement = connection.prepareStatement(SQL);
             ResultSet resultSet = statement.executeQuery()) {
-            resultSet.next();
-            rez = createEntityFromResultSet(resultSet, the_class);
+            if(resultSet.next())
+                rez = createEntityFromResultSet(resultSet, the_class);
+            else throw new DataNotFoundException("Can not retrieve data from table "+the_class.getSimpleName()+" with the given primary keys!");
         }
         return rez;
     }
