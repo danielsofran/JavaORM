@@ -34,6 +34,7 @@ The purpose is to drastically reduce the number of code lines written for the mo
 2. All the ```@DBEntity``` entities must have getters and setters following the pattern ```get/set + FieldName```, where ```FieldName``` has the first letter in uppercase and the others as the original field
 3. All the ```@DBEntity``` entities must have primary keys
 4. All the ```@DBEntity``` entities must have at most one auto increment field
+5. The primary key of an  ```@DBEntity``` must have a basic data type
 
 ## Classes
 - ```ORM```
