@@ -15,7 +15,7 @@ The purpose is to drastically reduce the number of code lines written for the mo
 4. Creates the ```ConnectionManager``` from database name, username, password and port which is by default 5432
 
 ## Supports
-1. Only the postgres sql server
+1. Only PostgreSQL
 1. Basic data types
    - int, Integer
    - String
