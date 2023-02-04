@@ -22,12 +22,12 @@ The purpose is to drastically reduce the number of code lines written for the mo
    - double, Double, float, Float
    - boolean, Boolean
    - LocalDateTime, LocalDate, LocalTime
+   - Enums
 2. Aggregated _DBEntity_ types as foreign keys
 3. Field foreign keys (non aggregated)
 3. Foreign key update and delete rules: ```@Cascade```, ```@SetNull```, ```@NoAction```
 4. Composite primary keys in non referenced tables
 5. Inheritance in ```@DBEntity``` entities
-6. Enums 
 
 ## Limitations
 1. All the ```@DBEntity``` entities must have a default constructor
