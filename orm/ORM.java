@@ -3,6 +3,7 @@ package orm;
 import orm.classparser.MethodCaller;
 import orm.classparser.PropertyChecker;
 import orm.classparser.PropertyParser;
+import orm.exceptions.DuplicateDataException;
 import orm.exceptions.OrmException;
 import orm.exceptions.PrimaryKeyException;
 import orm.sql.DDLWriter;
@@ -67,24 +68,39 @@ public class ORM {
 
         PropertyParser<Class<T>> parser = new PropertyParser<>(the_class);
         List<Field> ais = parser.getAutoIncs();
-        if(ais.size()!=1)
-            throw new PrimaryKeyException("Entity "+the_class.getSimpleName()+" must have exactly 1 Auto Increment field, bat it has "+ais.size()+"!");
-        Field ai = ais.get(0);
-        String sqlType = JavaSQLMapper.getSQLType(ai.getType());
-
+        if(ais.size()>1)
+            throw new PrimaryKeyException("Entity "+the_class.getSimpleName()+" must have at most 1 Auto Increment field, bat it has "+ais.size()+"!");
         String insertSQL = DMLWriter.getInsertSQL(obj);
-        String selectSQL = "SELECT CAST(LASTVAL() AS "+sqlType+")";
 
         Connection connection=connectionManager.getConnection();
         Statement s = connection.createStatement();
-        s.executeUpdate(insertSQL);
+        try {
+            s.executeUpdate(insertSQL);
+        }
+        catch (SQLException sqlException)
+        {
+            if(sqlException.getMessage().contains("duplicate key value violates unique constraint"))
+                throw new DuplicateDataException("Value "+obj+" already exists in the table "+the_class.getSimpleName());
+            else throw sqlException;
+        }
 
-        ResultSet rs = s.executeQuery(selectSQL);
-        rs.next();
-        String fname = ai.getName();
-        Object value = rs.getObject(1);
-        MethodCaller.callSetter(obj, fname, value);
-        rs.close();
+        if(ais.size() == 1) {
+            Field ai = ais.get(0);
+            String sqlType = ai!=null?JavaSQLMapper.getSQLType(ai.getType()):"";
+            String selectSQL = "SELECT CAST(LASTVAL() AS "+sqlType+")";
+            String fname = "";
+            try{fname=ai.getName();}
+            catch (NullPointerException ex){
+                throw new OrmException("AutoIncrement field getName() for INSERT in table "+the_class.getSimpleName()+" failed!");
+            }
+
+            ResultSet rs = s.executeQuery(selectSQL);
+            rs.next();
+
+            Object value = rs.getObject(1);
+            MethodCaller.callSetter(obj, fname, value);
+            rs.close();
+        }
         connection.close();
         return the_class.cast(obj);
     }

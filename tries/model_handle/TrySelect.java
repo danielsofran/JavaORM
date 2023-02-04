@@ -91,6 +91,16 @@ public class TrySelect {
         orm.delete(Persoana2.class, persoana2.getId());
     }
 
+    static void test_insert2() throws OrmException, SQLException {
+        ORM orm = new ORM(new ConnectionManager());
+        NonAIData data = new NonAIData();
+        data.setId(2L);
+        data.setSomeData("SOMEDATA");
+
+        //orm.createTables(NonAIData.class);
+        orm.delete(NonAIData.class, data.getId());
+    }
+
     static void test_select() throws SQLException, OrmException {
         ORM orm = new ORM(new ConnectionManager());
         List<Angajat> rez = orm.select(Angajat.class);
@@ -118,7 +128,8 @@ public class TrySelect {
     public static void main(String[] args) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, OrmException, SQLException, NoSuchFieldException {
         //test_ctor();
         //test_timestamp();
-        test_insert();
+        //test_insert();
+        test_insert2();
         //test_select();
         //test_createSeq();
         //System.out.println(MyEnum.A.toString());
