@@ -1,4 +1,4 @@
-package orm.sql;
+package orm.sql.utils;
 
 import orm.exceptions.OrmException;
 import orm.exceptions.TypeConversionFailedException;

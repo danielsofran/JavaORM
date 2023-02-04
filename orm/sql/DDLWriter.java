@@ -5,6 +5,7 @@ import orm.classparser.PropertyParser;
 import orm.exceptions.ForeignKeyException;
 import orm.exceptions.PrimaryKeyException;
 import orm.exceptions.TypeConversionFailedException;
+import orm.sql.utils.JavaSQLMapper;
 
 import java.lang.reflect.Field;
 import java.util.List;

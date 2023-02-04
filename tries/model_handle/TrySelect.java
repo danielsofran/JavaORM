@@ -4,18 +4,19 @@ import models.demo.*;
 import orm.ConnectionManager;
 import orm.ORM;
 import orm.classparser.MethodCaller;
+import orm.classparser.PropertyParser;
 import orm.exceptions.OrmException;
-import orm.sql.InsertWriter;
+import orm.sql.DMLWriter;
 import orm.sql.SelectExecutor;
+import orm.sql.utils.SequenceType;
 
 import java.lang.reflect.InvocationTargetException;
-import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class TrySelect {
-    static void test_ctor() throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, OrmException, SQLException {
+    static void test_ctor() throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, OrmException, SQLException, NoSuchFieldException {
         MData mData = new MData(1, "str");
         String returned = MethodCaller.callGetter(new MData(1, "str"), "Data");
         Object id2 = 2;
@@ -29,9 +30,14 @@ public class TrySelect {
 //        String sql = InsertWriter.getInsertSQL(persoana);
 //        System.out.println(sql);
 
+//
 //        ORM orm = new ORM(new ConnectionManager());
 //        angajat = orm.insertValue(angajat);
         Ore ora = se.findByPK(Ore.class, 1);
+
+//        PropertyParser<?> ps = new PropertyParser<>(Angajat.class);
+//        String rez = DMLWriter.createSequence(angajat, ps.getFields(), SequenceType.SET);
+//        System.out.println(rez);
     }
 
     static void test_timestamp() throws OrmException, SQLException {
@@ -62,9 +68,9 @@ public class TrySelect {
         ora.setDate(LocalDateTime.now().toLocalDate());
         ora.setTime(LocalDateTime.now().toLocalTime());
 
-        ora.setAlong(3L);
+        ora.setALong(3L);
 
-        String sql = InsertWriter.getInsertSQL(ora);
+        String sql = DMLWriter.getInsertSQL(ora);
         System.out.println(sql);
 
         ORM orm = new ORM(new ConnectionManager());
@@ -77,12 +83,30 @@ public class TrySelect {
         MData data = orm.select(MData.class, 1);
     }
 
+    static void test_createSeq() throws OrmException {
+        Ore ora = new Ore();
+        ora.setId(1);
+        ora.setOra(LocalDateTime.now());
+        ora.setTip(MyEnum.B);
 
-    public static void main(String[] args) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, OrmException, SQLException {
-        //test_ctor();
+        ora.setFlag(true);
+        ora.setDate(LocalDateTime.now().toLocalDate());
+        ora.setTime(LocalDateTime.now().toLocalTime());
+
+        ora.setALong(3L);
+
+//        PropertyParser<?> psOre = new PropertyParser<>(Ore.class);
+//        String rez = DMLWriter.createSequence(ora, psOre.getFields(), SequenceType.CONDITION);
+//        System.out.println(rez);
+    }
+
+
+    public static void main(String[] args) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, OrmException, SQLException, NoSuchFieldException {
+        test_ctor();
         //test_timestamp();
         //test_insert();
-        test_select();
+        //test_select();
+        //test_createSeq();
         //System.out.println(MyEnum.A.toString());
     }
 }

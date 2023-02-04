@@ -25,11 +25,11 @@ public class Ore {
         return flag;
     }
 
-    public Long getAlong() {
+    public Long getALong() {
         return aLong;
     }
 
-    public void setAlong(Long aLong) {
+    public void setALong(Long aLong) {
         this.aLong = aLong;
     }
 

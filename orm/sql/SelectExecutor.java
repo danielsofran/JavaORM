@@ -5,7 +5,8 @@ import orm.classparser.MethodCaller;
 import orm.classparser.PropertyChecker;
 import orm.classparser.PropertyParser;
 import orm.exceptions.OrmException;
-import orm.exceptions.PrimaryKeyException;
+import orm.sql.utils.JavaSQLMapper;
+import orm.sql.utils.Utils;
 
 import java.lang.reflect.Field;
 import java.sql.Connection;
@@ -24,11 +25,8 @@ public class SelectExecutor {
 
     public <T> T findByPK(Class<T> the_class, Object pkValue) throws OrmException, SQLException {
         PropertyParser<Class<T>> parser = new PropertyParser<>(the_class);
-        List<Field> pks = parser.getPKs();
-        if(pks.size()!=1)
-            throw new PrimaryKeyException("The table "+the_class.getSimpleName()+" must have exactly 1 PK!");
-        Field pk = pks.get(0);
-        String SQL = "SELECT * FROM \""+parser.getName()+"\" WHERE \""+pk.getName()+"\" = "+JavaSQLMapper.toSQLValue(pkValue)+" LIMIT 1";
+        Field pk = Utils.getFirstPK(the_class);
+        String SQL = "SELECT * FROM \""+parser.getName()+"\" WHERE "+Utils.createEqualCondition(pk, pkValue)+" LIMIT 1";
 
         T rez = null;
         try(Connection connection = connectionManager.getConnection();

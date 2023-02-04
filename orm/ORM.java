@@ -6,8 +6,8 @@ import orm.classparser.PropertyParser;
 import orm.exceptions.OrmException;
 import orm.exceptions.PrimaryKeyException;
 import orm.sql.DDLWriter;
-import orm.sql.InsertWriter;
-import orm.sql.JavaSQLMapper;
+import orm.sql.DMLWriter;
+import orm.sql.utils.JavaSQLMapper;
 import orm.sql.SelectExecutor;
 
 import java.lang.reflect.Field;
@@ -72,7 +72,7 @@ public class ORM {
         Field ai = ais.get(0);
         String sqlType = JavaSQLMapper.getSQLType(ai.getType());
 
-        String insertSQL = InsertWriter.getInsertSQL(obj);
+        String insertSQL = DMLWriter.getInsertSQL(obj);
         String selectSQL = "SELECT CAST(LASTVAL() AS "+sqlType+")";
 
         Connection connection=connectionManager.getConnection();

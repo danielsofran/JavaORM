@@ -134,6 +134,6 @@ public class MethodCaller {
 
     private static String createSufix(String fieldName)
     {
-        return fieldName.substring(0, 1).toUpperCase()+fieldName.substring(1).toLowerCase();
+        return fieldName.substring(0, 1).toUpperCase()+fieldName.substring(1);
     }
 }
