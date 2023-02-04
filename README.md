@@ -35,6 +35,7 @@ The purpose is to drastically reduce the number of code lines written for the mo
 3. All the ```@DBEntity``` entities must have primary keys
 4. All the ```@DBEntity``` entities must have at most one auto increment field
 5. The primary key of an  ```@DBEntity``` must have a basic data type
+6. The values of primary keys required at Select/Update/Delete must follow the order in which they were declared inside the class 
 
 ## Classes
 - ```ORM```

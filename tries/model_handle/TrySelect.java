@@ -82,11 +82,11 @@ public class TrySelect {
         orm.update(ora, ora.getId());
 
         Persoana2 persoana2 = new Persoana2();
-        persoana2.setNume("Persoana2");
+        persoana2.setNume(null);
         persoana2.setMdata_id(1);
         persoana2 = orm.insert(persoana2);
         persoana2 = orm.select(Persoana2.class, persoana2.getId());
-        persoana2.setNume("Persoana21");
+        persoana2.setNume(null);
         orm.update(persoana2, persoana2.getId());
         orm.delete(Persoana2.class, persoana2.getId());
     }
@@ -128,8 +128,8 @@ public class TrySelect {
     public static void main(String[] args) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, OrmException, SQLException, NoSuchFieldException {
         //test_ctor();
         //test_timestamp();
-        //test_insert();
-        test_insert2();
+        test_insert();
+        //test_insert2();
         //test_select();
         //test_createSeq();
         //System.out.println(MyEnum.A.toString());

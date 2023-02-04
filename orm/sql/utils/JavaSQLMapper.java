@@ -50,6 +50,9 @@ public class JavaSQLMapper {
     }
 
     public static String toSQLValue(Object value){
+        if(value == null)
+            return "NULL";
+
         if(value.getClass().getSimpleName().equals("String"))
             return "'"+ value +"'";
         if(value.getClass().getSimpleName().equals("LocalDateTime"))
@@ -68,6 +71,8 @@ public class JavaSQLMapper {
     }
 
     public static Object toJavaValue(Object value){
+        if(value == null)
+            return null;
         if(Objects.equals(value.getClass(), Timestamp.class))
             return Timestamp.class.cast(value).toLocalDateTime();
         if(Objects.equals(value.getClass(), Date.class))
