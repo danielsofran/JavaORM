@@ -18,6 +18,7 @@ The purpose is to drastically reduce the number of code lines written for the mo
 1. Only PostgreSQL
 1. Basic data types
    - int, Integer
+   - long, Long
    - String
    - double, Double, float, Float
    - boolean, Boolean
