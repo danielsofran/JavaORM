@@ -38,7 +38,8 @@ The purpose is to drastically reduce the number of code lines written for the mo
 
 ## Classes
 - ```ORM```
-- ```ConnectionManager```: handles the url, username, passdword of the database
-
+- ```ConnectionManager```: handles the url, username, password of the database
+- ```OrmException```: base exception to all ones that can be thrown inside the ORM
+- ```DuplicateDataException```: when inserting an entity with non Auto Increment primary key
 # Warning
 Please don't use the other classes, even though they are public. This issue will be fixed soon.
