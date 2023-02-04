@@ -1,9 +1,6 @@
 package orm.classparser;
 
-import orm.annotations.AutoInc;
-import orm.annotations.Entity;
-import orm.annotations.NotNull;
-import orm.annotations.PK;
+import orm.annotations.*;
 import orm.annotations.rules.Cascade;
 import orm.annotations.rules.NoAction;
 import orm.annotations.rules.SetNull;
@@ -16,7 +13,7 @@ import java.util.stream.Collectors;
 
 public class PropertyChecker {
     public static boolean isEntity(Class<?> the_class){
-        Annotation annotation = the_class.getAnnotation(Entity.class);
+        Annotation annotation = the_class.getAnnotation(DBEntity.class);
         return !(annotation == null);
     }
 
@@ -30,27 +27,32 @@ public class PropertyChecker {
         return !(annotation == null);
     }
 
-    public static boolean isFK(Field the_class){
+    public static boolean isFKEntity(Field the_class){
         return isEntity(the_class.getType());
+    }
+
+    public static boolean isFKAnnotation(Field the_class){
+        Annotation annotation = the_class.getAnnotation(FK.class);
+        return !(annotation == null);
     }
 
     public static boolean isCascade(Field the_class){
         Annotation annotation = the_class.getAnnotation(Cascade.class);
-        return !(annotation == null) && isFK(the_class);
+        return !(annotation == null) && isFKEntity(the_class);
     }
 
     public static boolean isNoAction(Field the_class){
         Annotation annotation = the_class.getAnnotation(NoAction.class);
-        return !(annotation == null) && isFK(the_class);
+        return !(annotation == null) && isFKEntity(the_class);
     }
 
     public static boolean isSetNull(Field the_class){
         Annotation annotation = the_class.getAnnotation(SetNull.class);
-        return !(annotation == null) && isFK(the_class);
+        return !(annotation == null) && isFKEntity(the_class);
     }
 
     public static boolean isNotNull(Field the_class){
-        Annotation annotation = the_class.getAnnotation(NotNull.class);
+        Annotation annotation = the_class.getAnnotation(DBNotNull.class);
         return !(annotation == null);
     }
 

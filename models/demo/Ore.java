@@ -1,14 +1,14 @@
 package models.demo;
 
 import orm.annotations.AutoInc;
-import orm.annotations.Entity;
+import orm.annotations.DBEntity;
 import orm.annotations.PK;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-@Entity
+@DBEntity
 public class Ore {
     @PK @AutoInc
     int id;

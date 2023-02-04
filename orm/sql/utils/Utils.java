@@ -1,19 +1,20 @@
 package orm.sql.utils;
 
+import orm.classparser.MethodCaller;
+import orm.classparser.PropertyChecker;
 import orm.classparser.PropertyParser;
+import orm.exceptions.OrmException;
 import orm.exceptions.PrimaryKeyException;
-import orm.sql.utils.JavaSQLMapper;
 
 import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Utils {
-    private static Double eps = 10e-5;
-    private static List<Class<?>> floatingPointTypes = new LinkedList<>();
+    private static final Double eps = 1e-5;
+    private static final List<Class<?>> floatingPointTypes = new LinkedList<>();
     static{
         floatingPointTypes.add(double.class);
         floatingPointTypes.add(float.class);
@@ -39,5 +40,44 @@ public class Utils {
         if(LocalDate.class.equals(the_class))
             return '"'+field.getName()+"\"::time(0) = "+JavaSQLMapper.toSQLValue(value)+"::time(0)";
         return '"'+field.getName()+"\" = "+JavaSQLMapper.toSQLValue(value);
+    }
+
+    public static String createConditionSequence(List<Field> fields, Object... values) throws OrmException {
+        String rez = "", separator = "AND";
+        int index = 0;
+        for(Field field : fields)
+        {
+            Object value = values[index++];
+            if(PropertyChecker.isFKEntity(field))
+            {
+                Field pk = Utils.getFirstPK(value.getClass());
+                value = MethodCaller.callGetter(value, pk.getName());
+            }
+            String current_seq = Utils.createEqualCondition(field, value);
+            if(rez.equals(""))
+                rez = current_seq;
+            else
+                rez += " " + separator + " " + current_seq;
+        }
+        return rez;
+    }
+
+    public static String createSetSequence(Object obj, List<Field> fields) throws OrmException {
+        String rez = "", separator = ",";
+        for(Field field : fields)
+        {
+            Object value = MethodCaller.callGetter(obj, field.getName());
+            if(PropertyChecker.isFKEntity(field))
+            {
+                Field pk = Utils.getFirstPK(value.getClass());
+                value = MethodCaller.callGetter(value, pk.getName());
+            }
+            String current_seq = '"'+field.getName()+"\" = " + JavaSQLMapper.toSQLValue(value);
+            if(rez.equals(""))
+                rez = current_seq;
+            else
+                rez += " " + separator + " " + current_seq;
+        }
+        return rez;
     }
 }

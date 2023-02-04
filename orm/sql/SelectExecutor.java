@@ -5,6 +5,7 @@ import orm.classparser.MethodCaller;
 import orm.classparser.PropertyChecker;
 import orm.classparser.PropertyParser;
 import orm.exceptions.OrmException;
+import orm.exceptions.PrimaryKeyException;
 import orm.sql.utils.JavaSQLMapper;
 import orm.sql.utils.Utils;
 
@@ -23,12 +24,14 @@ public class SelectExecutor {
     public SelectExecutor(ConnectionManager connectionManager){
         this.connectionManager = connectionManager; }
 
-    public <T> T findByPK(Class<T> the_class, Object pkValue) throws OrmException, SQLException {
+    public <T> T findByPK(Class<T> the_class, Object... pkValues) throws OrmException, SQLException {
         PropertyParser<Class<T>> parser = new PropertyParser<>(the_class);
-        Field pk = Utils.getFirstPK(the_class);
-        String SQL = "SELECT * FROM \""+parser.getName()+"\" WHERE "+Utils.createEqualCondition(pk, pkValue)+" LIMIT 1";
+        List<Field> pks = parser.getPKs();
+        if(pks.size() != pkValues.length)
+            throw new PrimaryKeyException("Wrong number of PKs in SELECT for table "+parser.getName()+" "+pkValues.length+", instead of "+pks.size());
+        String SQL = "SELECT * FROM \""+parser.getName()+"\" WHERE "+Utils.createConditionSequence(pks, pkValues)+" LIMIT 1";
 
-        T rez = null;
+        T rez;
         try(Connection connection = connectionManager.getConnection();
             PreparedStatement statement = connection.prepareStatement(SQL);
             ResultSet resultSet = statement.executeQuery()) {
@@ -61,8 +64,8 @@ public class SelectExecutor {
         Object instance = MethodCaller.ctor(the_class);
 
         for (Field field : fields){
-            Object obj = null;
-            if(!PropertyChecker.isFK(field))
+            Object obj;
+            if(!PropertyChecker.isFKEntity(field))
                 obj = resultSet.getObject(field.getName());
             else {
                 Object idObj = resultSet.getObject(field.getName());

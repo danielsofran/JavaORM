@@ -1,5 +1,6 @@
 package orm.sql;
 
+import orm.annotations.FK;
 import orm.classparser.PropertyChecker;
 import orm.classparser.PropertyParser;
 import orm.exceptions.ForeignKeyException;
@@ -13,10 +14,6 @@ import java.util.List;
 public class DDLWriter {
 
     private final PropertyParser<?> parser;
-
-    public DDLWriter(PropertyParser<?> parser){
-        this.parser = parser;
-    }
 
     public DDLWriter(Class<?> the_class){
         parser = new PropertyParser<>(the_class);
@@ -61,14 +58,15 @@ public class DDLWriter {
 
     private String createFKs(){
         String rez = "";
-        List<Field> fks = parser.getFKs();
+        List<Field> entityFKs = parser.getEntityFKs();
+        List<Field> annotationFKs = parser.getAnnotationFKs();
         //List<PropertyParser<?>> refs = fks.stream().map(f -> new PropertyParser<>(f.getType())).collect(Collectors.toList());
-        for(Field field : fks){
+        for(Field field : entityFKs){
             PropertyParser<?> fkParser = new PropertyParser<>(field.getType());
             String pkName = '"'+fkParser.getPKs().get(0).getName()+'"';
             String constraint = "CONSTRAINT fk_"+parser.getName()+"_"+fkParser.getName()+"\n\t"
                     +"FOREIGN KEY(\""+field.getName()+"\")\n\t"
-                    +"REFERENCES \""+fkParser.getName()+"\"("+pkName+") ";
+                    +"REFERENCES \""+fkParser.getName()+"\"(\""+pkName+"\") ";
             if(PropertyChecker.isCascade(field))
                 constraint+=
                     "ON DELETE CASCADE "+
@@ -77,6 +75,26 @@ public class DDLWriter {
                 constraint+=
                     "ON DELETE SET NULL "+
                     "ON UPDATE SET NULL";
+            if(PropertyChecker.isNoAction(field))
+                constraint+=
+                        "ON DELETE NO ACTION "+
+                                "ON UPDATE NO ACTION";
+            rez += constraint + ",\n";
+        }
+        for(Field field : annotationFKs){
+            //PropertyParser<?> fkParser = new PropertyParser<>(field.getType());
+            FK FKa = field.getAnnotation(FK.class);
+            String constraint = "CONSTRAINT fk_"+parser.getName()+"_"+FKa.Table()+"\n\t"
+                    +"FOREIGN KEY(\""+field.getName()+"\")\n\t"
+                    +"REFERENCES \""+FKa.Table()+"\"(\""+FKa.RefCol()+"\") ";
+            if(PropertyChecker.isCascade(field))
+                constraint+=
+                        "ON DELETE CASCADE "+
+                                "ON UPDATE CASCADE";
+            if(PropertyChecker.isSetNull(field))
+                constraint+=
+                        "ON DELETE SET NULL "+
+                                "ON UPDATE SET NULL";
             if(PropertyChecker.isNoAction(field))
                 constraint+=
                         "ON DELETE NO ACTION "+

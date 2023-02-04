@@ -2,18 +2,19 @@ package models.demo;
 
 import orm.annotations.AutoInc;
 import orm.annotations.DBEntity;
+import orm.annotations.FK;
 import orm.annotations.PK;
 import orm.annotations.rules.Cascade;
 
 @DBEntity
-public class Persoana {
+public class Persoana2 {
     @PK @AutoInc
     private int id;
-    @Cascade
-    MData data;
+    @FK(Table = "MData", RefCol = "id") @Cascade
+    int mdata_id;
     private String nume;
 
-    public Persoana() {}
+    public Persoana2(){}
 
     public int getId() {
         return id;
@@ -23,12 +24,12 @@ public class Persoana {
         this.id = id;
     }
 
-    public MData getData() {
-        return data;
+    public int getMdata_id() {
+        return mdata_id;
     }
 
-    public void setData(MData data) {
-        this.data = data;
+    public void setMdata_id(int mdata_id) {
+        this.mdata_id = mdata_id;
     }
 
     public String getNume() {

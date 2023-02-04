@@ -38,7 +38,7 @@ public class ORM {
         PropertyParser<?> first = writers.get(0).getParser();
         if(first.getNrAllFK() != 1)
         {
-            String fk = first.getFKs().stream()
+            String fk = first.getEntityFKs().stream()
                     .map(f -> "Table: "+f.getDeclaringClass().getSimpleName()+", Type: "+f.getType().getSimpleName()+", Field:"+f.getName()+"\n")
                     .reduce((c1, c2) -> c1 + " " + c2 + " ").orElse("");
             throw new OrmException("Cannot create model because references for \n"+fk+" are missing");
@@ -94,9 +94,19 @@ public class ORM {
         return se.executeSelectAll(table);
     }
 
-    public <T> T select(Class<T> table, Object pkValue) throws OrmException, SQLException {
+    public <T> T select(Class<T> table, Object... pkValues) throws OrmException, SQLException {
         SelectExecutor se = new SelectExecutor(connectionManager);
-        return se.findByPK(table, pkValue);
+        return se.findByPK(table, pkValues);
+    }
+
+    public <T> void delete(Class<T> table, Object... pkValues) throws OrmException, SQLException {
+        String SQL = DMLWriter.getDeleteSQL(table, pkValues);
+        connectionManager.executeUpdateSql(SQL);
+    }
+
+    public <T> void update(T updated, Object... pkValues) throws OrmException, SQLException {
+        String SQL = DMLWriter.getUpdateSQL(updated, pkValues);
+        connectionManager.executeUpdateSql(SQL);
     }
 
 }

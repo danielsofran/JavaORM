@@ -1,10 +1,10 @@
 package models.demo;
 
 import orm.annotations.AutoInc;
-import orm.annotations.Entity;
+import orm.annotations.DBEntity;
 import orm.annotations.PK;
 
-@Entity
+@DBEntity
 public class MData {
     @PK @AutoInc
     int id;

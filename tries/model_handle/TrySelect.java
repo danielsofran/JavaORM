@@ -8,17 +8,17 @@ import orm.classparser.PropertyParser;
 import orm.exceptions.OrmException;
 import orm.sql.DMLWriter;
 import orm.sql.SelectExecutor;
-import orm.sql.utils.SequenceType;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 public class TrySelect {
     static void test_ctor() throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, OrmException, SQLException, NoSuchFieldException {
         MData mData = new MData(1, "str");
-        String returned = MethodCaller.callGetter(new MData(1, "str"), "Data");
+        String returned = MethodCaller.callGetter(new MData(1, "str"), "Data"), rez;
         Object id2 = 2;
         MethodCaller.callSetter(mData, "Id", id2);
         ConnectionManager conn = new ConnectionManager();
@@ -36,8 +36,11 @@ public class TrySelect {
         Ore ora = se.findByPK(Ore.class, 1);
 
 //        PropertyParser<?> ps = new PropertyParser<>(Angajat.class);
-//        String rez = DMLWriter.createSequence(angajat, ps.getFields(), SequenceType.SET);
+//        rez = DMLWriter.createSequence(angajat, ps.getFields(), SequenceType.SET);
 //        System.out.println(rez);
+        rez = DMLWriter.getDeleteSQL(Ore.class, 1);
+
+        System.out.println(rez);
     }
 
     static void test_timestamp() throws OrmException, SQLException {
@@ -71,10 +74,21 @@ public class TrySelect {
         ora.setALong(3L);
 
         String sql = DMLWriter.getInsertSQL(ora);
-        System.out.println(sql);
+        //System.out.println(sql);
 
         ORM orm = new ORM(new ConnectionManager());
         ora = orm.insert(ora);
+        ora.setALong(4L);
+        orm.update(ora, ora.getId());
+
+        Persoana2 persoana2 = new Persoana2();
+        persoana2.setNume("Persoana2");
+        persoana2.setMdata_id(1);
+        persoana2 = orm.insert(persoana2);
+        persoana2 = orm.select(Persoana2.class, persoana2.getId());
+        persoana2.setNume("Persoana21");
+        orm.update(persoana2, persoana2.getId());
+        orm.delete(Persoana2.class, persoana2.getId());
     }
 
     static void test_select() throws SQLException, OrmException {
@@ -102,9 +116,9 @@ public class TrySelect {
 
 
     public static void main(String[] args) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, OrmException, SQLException, NoSuchFieldException {
-        test_ctor();
+        //test_ctor();
         //test_timestamp();
-        //test_insert();
+        test_insert();
         //test_select();
         //test_createSeq();
         //System.out.println(MyEnum.A.toString());

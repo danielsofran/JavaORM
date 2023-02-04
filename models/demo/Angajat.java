@@ -1,9 +1,8 @@
 package models.demo;
 
-import orm.annotations.Entity;
-import orm.annotations.PK;
+import orm.annotations.DBEntity;
 
-@Entity
+@DBEntity
 public class Angajat extends Persoana{
     private double salariu;
     private Persoana sef;
