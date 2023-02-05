@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="14d8e991-8923-4d3c-8584-5d33c46ec93a" name="Changes" comment="Updated README.md">
+    <list default="true" id="14d8e991-8923-4d3c-8584-5d33c46ec93a" name="Changes" comment="fixed counting FKs bug">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/demo/Persoana2.java" beforeDir="false" afterPath="$PROJECT_DIR$/models/demo/Persoana2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/orm/annotations/FK.java" beforeDir="false" afterPath="$PROJECT_DIR$/orm/annotations/FK.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/orm/classparser/PropertyParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/orm/classparser/PropertyParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/orm/sql/DDLWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/orm/sql/DDLWriter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tries/model_handle/TrySelect.java" beforeDir="false" afterPath="$PROJECT_DIR$/tries/model_handle/TrySelect.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,7 +78,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.TrySelect">
+  <component name="RunManager" selected="Application.Try1">
     <configuration name="Try1" type="Application" factoryName="Application">
       <option name="ALTERNATIVE_JRE_PATH" value="$PROJECT_DIR$/../../../../../Program Files/Java/jdk-11.0.16.1" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
@@ -123,7 +127,8 @@
       <workItem from="1675413189686" duration="13692000" />
       <workItem from="1675498207241" duration="15486000" />
       <workItem from="1675540283831" duration="6286000" />
-      <workItem from="1675551085598" duration="1761000" />
+      <workItem from="1675551085598" duration="1924000" />
+      <workItem from="1675584264587" duration="478000" />
     </task>
     <task id="LOCAL-00001" summary="create v1">
       <created>1675004329915</created>
@@ -216,7 +221,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675547033339</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="fixed counting FKs bug">
+      <created>1675556465012</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1675556465012</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -245,7 +257,8 @@
     <MESSAGE value="support of null fields&#10;Updated README.md" />
     <MESSAGE value="DataNotFoundException&#10;Updated README.md" />
     <MESSAGE value="Updated README.md" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated README.md" />
+    <MESSAGE value="fixed counting FKs bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed counting FKs bug" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>

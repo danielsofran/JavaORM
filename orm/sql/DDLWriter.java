@@ -84,7 +84,7 @@ public class DDLWriter {
         for(Field field : annotationFKs){
             //PropertyParser<?> fkParser = new PropertyParser<>(field.getType());
             FK FKa = field.getAnnotation(FK.class);
-            String constraint = "CONSTRAINT fk_"+parser.getName()+"_"+FKa.Table()+"\n\t"
+            String constraint = "CONSTRAINT fk_"+parser.getName()+"_"+FKa.Table().getSimpleName()+"\n\t"
                     +"FOREIGN KEY(\""+field.getName()+"\")\n\t"
                     +"REFERENCES \""+FKa.Table()+"\"(\""+FKa.RefCol()+"\") ";
             if(PropertyChecker.isCascade(field))

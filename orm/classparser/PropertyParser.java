@@ -1,5 +1,7 @@
 package orm.classparser;
 
+import orm.annotations.FK;
+
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -127,8 +129,10 @@ public class PropertyParser<T extends Class<?>> {
             for(Field field : fieldList)
                 if(PropertyChecker.isFKEntity(field))
                     rez += getNrAllFK(field.getType());
-                else if(PropertyChecker.isFKAnnotation(field))
-                    rez += 1;
+                else if(PropertyChecker.isFKAnnotation(field)) {
+                    FK FKa = field.getAnnotation(FK.class);
+                    rez += getNrAllFK(FKa.getClass());
+                }
             return rez;
         }
         return 0;

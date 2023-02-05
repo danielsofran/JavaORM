@@ -10,7 +10,7 @@ import orm.annotations.rules.Cascade;
 public class Persoana2 {
     @PK @AutoInc
     private int id;
-    @FK(Table = "MData", RefCol = "id") @Cascade
+    @FK(Table = MData.class, RefCol = "id") @Cascade
     int mdata_id;
     private String nume;
 

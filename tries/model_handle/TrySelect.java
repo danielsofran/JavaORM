@@ -128,7 +128,7 @@ public class TrySelect {
 
 
     public static void main(String[] args) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, OrmException, SQLException, NoSuchFieldException {
-        test_ctor();
+        //test_ctor();
         //test_timestamp();
         //test_insert();
         //test_insert2();
