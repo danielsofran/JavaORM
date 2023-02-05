@@ -21,6 +21,8 @@ The purpose is to drastically reduce the number of code lines written for the mo
 1. Basic data types
    - int, Integer
    - long, Long
+   - short, Short
+   - char, Character
    - String
    - double, Double, float, Float
    - boolean, Boolean

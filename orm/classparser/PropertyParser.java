@@ -103,33 +103,29 @@ public class PropertyParser<T extends Class<?>> {
         return autoIncs;
     }
 
-//    private List<Class<?>> getAllClasses(Class<?> the_class)
-//    {
-//        if(checkClassRecursion(the_class))
-//        {
-//            List<Class<?>> rez = new LinkedList<>();
-//            rez.add(the_class);
-//            List<Field> fieldList = getFieldsRec(the_class);
-//            for(Field field : fieldList)
-//                if(PropertyChecker.isFKEntity(field))
-//                    rez.addAll(getAllClasses(field.getType()));
-//                else if(PropertyChecker.isFKAnnotation(field))
-//                    rez.add(field.getType());
-//            return rez.stream().distinct().collect(Collectors.toList());
-//        }
-//        return new LinkedList<>();
-//    }
+    private List<Class<?>> getAllClasses(Class<?> the_class)
+    {
+        if(checkClassRecursion(the_class))
+        {
+            List<Class<?>> rez = new LinkedList<>();
+            rez.add(the_class);
+            List<Field> fieldList = getFieldsRec(the_class);
+            for(Field field : fieldList)
+                if(PropertyChecker.isFKEntity(field))
+                    rez.addAll(getAllClasses(field.getType()));
+            return rez.stream().distinct().collect(Collectors.toList());
+        }
+        return new LinkedList<>();
+    }
 
     private int getNrAllFK(Class<?> the_class)
     {
         if(checkClassRecursion(the_class))
         {
-            int rez = 1;
+            int rez = 0;
             List<Field> fieldList = getFieldsRec(the_class);
             for(Field field : fieldList)
-                if(PropertyChecker.isFKEntity(field))
-                    rez += getNrAllFK(field.getType());
-                else if(PropertyChecker.isFKAnnotation(field)) {
+                if(PropertyChecker.isFKAnnotation(field)) {
                     FK FKa = field.getAnnotation(FK.class);
                     rez += getNrAllFK(FKa.getClass());
                 }
@@ -139,7 +135,8 @@ public class PropertyParser<T extends Class<?>> {
     }
 
     public int getNrAllFK() {
-        return getNrAllFK(currentClass);
+        List<Class<?>> classes = getAllClasses(currentClass);
+        return getNrAllFK(currentClass) + classes.size();
     }
 
     @Override

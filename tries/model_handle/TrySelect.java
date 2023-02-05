@@ -126,6 +126,23 @@ public class TrySelect {
 //        System.out.println(rez);
     }
 
+    private static void test_types() throws OrmException, SQLException {
+        ORM orm = new ORM(new ConnectionManager());
+
+        TData tData = new TData();
+        tData.setC('c');
+        tData.setCh('C');
+        tData.setDbl(1e-50);
+        tData.setS((short) 2);
+        tData.setId(1e-23f);
+
+        //tData = orm.insert(tData);
+        tData = orm.select(TData.class, tData.getId());
+        tData.setCh(null);
+        orm.update(tData, tData.getId());
+        orm.delete(Persoana2.class, tData.getId());
+    }
+
 
     public static void main(String[] args) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, OrmException, SQLException, NoSuchFieldException {
         //test_ctor();
@@ -134,6 +151,7 @@ public class TrySelect {
         //test_insert2();
         //test_select();
         //test_createSeq();
+        test_types();
         //System.out.println(MyEnum.A.toString());
     }
 }

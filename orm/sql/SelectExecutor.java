@@ -75,7 +75,7 @@ public class SelectExecutor {
             }
 
             if(!field.getType().isEnum())
-                obj = JavaSQLMapper.toJavaValue(obj);
+                obj = JavaSQLMapper.toJavaValue(obj, field.getType());
             else
                 obj = JavaSQLMapper.toJavaEnum(obj, field.getType());
             MethodCaller.callSetter(instance, field.getName(), obj);

@@ -18,14 +18,14 @@ public class Try1 {
         //System.out.println(parser.getNrAllFK());
         //System.out.println(int.class.getTypeName().substring(0, 1));
         ORM orm = new ORM(new ConnectionManager());
-        DDLWriter writer = new DDLWriter(Persoana2.class);
-        System.out.println(writer.getCreateSQL());
+//        DDLWriter writer = new DDLWriter(Persoana2.class);
+//        System.out.println(writer.getCreateSQL());
 
         try {
             //orm.dropTables(Persoana.class, MData.class, Angajat.class);
             //orm.createTables(Persoana.class, MData.class, Angajat.class);
-            orm.dropTables(Persoana2.class);
-            orm.createTables(Persoana2.class);
+            orm.dropTables(TData.class);
+            orm.createTables(TData.class);
         }
         catch (Exception ex){
             ex.printStackTrace();
