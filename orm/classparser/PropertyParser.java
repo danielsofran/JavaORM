@@ -101,25 +101,41 @@ public class PropertyParser<T extends Class<?>> {
         return autoIncs;
     }
 
-    private List<Class<?>> getAllClasses(Class<?> the_class)
+//    private List<Class<?>> getAllClasses(Class<?> the_class)
+//    {
+//        if(checkClassRecursion(the_class))
+//        {
+//            List<Class<?>> rez = new LinkedList<>();
+//            rez.add(the_class);
+//            List<Field> fieldList = getFieldsRec(the_class);
+//            for(Field field : fieldList)
+//                if(PropertyChecker.isFKEntity(field))
+//                    rez.addAll(getAllClasses(field.getType()));
+//                else if(PropertyChecker.isFKAnnotation(field))
+//                    rez.add(field.getType());
+//            return rez.stream().distinct().collect(Collectors.toList());
+//        }
+//        return new LinkedList<>();
+//    }
+
+    private int getNrAllFK(Class<?> the_class)
     {
         if(checkClassRecursion(the_class))
         {
-            List<Class<?>> rez = new LinkedList<>();
-            rez.add(the_class);
+            int rez = 1;
             List<Field> fieldList = getFieldsRec(the_class);
             for(Field field : fieldList)
-            {
-                rez.addAll(getAllClasses(field.getType()));
-            }
-            return rez.stream().distinct().collect(Collectors.toList());
+                if(PropertyChecker.isFKEntity(field))
+                    rez += getNrAllFK(field.getType());
+                else if(PropertyChecker.isFKAnnotation(field))
+                    rez += 1;
+            return rez;
         }
-        return new LinkedList<>();
+        return 0;
     }
 
     public int getNrAllFK() {
-        List<Class<?>> classes = getAllClasses(currentClass);
-        return classes.size();
+        return getNrAllFK(currentClass);
     }
 
     @Override

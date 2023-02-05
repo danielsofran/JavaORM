@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="14d8e991-8923-4d3c-8584-5d33c46ec93a" name="Changes" comment="Updated README.md">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/orm/classparser/PropertyParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/orm/classparser/PropertyParser.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,7 +122,8 @@
       <workItem from="1675370851073" duration="14415000" />
       <workItem from="1675413189686" duration="13692000" />
       <workItem from="1675498207241" duration="15486000" />
-      <workItem from="1675540283831" duration="6210000" />
+      <workItem from="1675540283831" duration="6286000" />
+      <workItem from="1675551085598" duration="1761000" />
     </task>
     <task id="LOCAL-00001" summary="create v1">
       <created>1675004329915</created>
@@ -208,7 +209,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675546408264</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Updated README.md">
+      <created>1675547033339</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1675547033339</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
