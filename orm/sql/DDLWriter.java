@@ -87,7 +87,7 @@ public class DDLWriter {
             FK FKa = field.getAnnotation(FK.class);
             String constraint = "CONSTRAINT fk_"+parser.getName()+"_"+FKa.Table().getSimpleName()+"\n\t"
                     +"FOREIGN KEY(\""+field.getName()+"\")\n\t"
-                    +"REFERENCES \""+FKa.Table()+"\"(\""+FKa.RefCol()+"\") ";
+                    +"REFERENCES \""+FKa.Table().getSimpleName()+"\"(\""+FKa.RefCol()+"\") ";
             if(PropertyChecker.isCascade(field))
                 constraint+=
                         "ON DELETE CASCADE "+
