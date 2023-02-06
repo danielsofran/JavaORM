@@ -37,13 +37,6 @@ public class ORM {
         if(writers.size() == 0)
             return;
         PropertyParser<?> first = writers.get(0).getParser();
-        if(first.getNrAllFK() != 1)
-        {
-            String fk = first.getEntityFKs().stream()
-                    .map(f -> "Table: "+f.getDeclaringClass().getSimpleName()+", Type: "+f.getType().getSimpleName()+", Field:"+f.getName()+"\n")
-                    .reduce((c1, c2) -> c1 + " " + c2 + " ").orElse("");
-            throw new OrmException("Cannot create model because references for \n"+fk+" are missing");
-        }
         for(DDLWriter sqlScript : writers)
         {
             //System.out.println(sqlScript.getSQL()+"\n\n");

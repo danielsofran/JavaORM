@@ -29,7 +29,7 @@ public class DDLWriter {
         if(type != null){
             rez += type;
         }
-        else { // FK
+        else if(PropertyChecker.isFKEntity(field)){ // FK
             // get FK type
             PropertyParser<?> fkParser = new PropertyParser<>(field.getType());
             List<Field> pks = fkParser.getPKs();
@@ -38,6 +38,7 @@ public class DDLWriter {
             Class<?> pktype = pks.get(0).getType();
             rez += JavaSQLMapper.getSQLType(pktype);
         }
+        else throw new TypeConversionFailedException("Could not convert "+field.getType().getSimpleName()+" to SQL");
         if(PropertyChecker.isNotNull(field))
             rez += " NOT NULL";
         if(PropertyChecker.isAutoInc(field))
@@ -63,7 +64,7 @@ public class DDLWriter {
         //List<PropertyParser<?>> refs = fks.stream().map(f -> new PropertyParser<>(f.getType())).collect(Collectors.toList());
         for(Field field : entityFKs){
             PropertyParser<?> fkParser = new PropertyParser<>(field.getType());
-            String pkName = '"'+fkParser.getPKs().get(0).getName()+'"';
+            String pkName = fkParser.getPKs().get(0).getName();
             String constraint = "CONSTRAINT fk_"+parser.getName()+"_"+fkParser.getName()+"\n\t"
                     +"FOREIGN KEY(\""+field.getName()+"\")\n\t"
                     +"REFERENCES \""+fkParser.getName()+"\"(\""+pkName+"\") ";

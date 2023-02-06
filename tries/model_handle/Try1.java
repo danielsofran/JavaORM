@@ -24,8 +24,8 @@ public class Try1 {
         try {
             //orm.dropTables(Persoana.class, MData.class, Angajat.class);
             //orm.createTables(Persoana.class, MData.class, Angajat.class);
-            orm.dropTables(TData.class);
-            orm.createTables(TData.class);
+            //orm.dropTables(TData.class);
+            orm.createTables(E_FkData.class);
         }
         catch (Exception ex){
             ex.printStackTrace();

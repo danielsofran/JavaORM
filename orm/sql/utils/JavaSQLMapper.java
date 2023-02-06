@@ -56,7 +56,8 @@ public class JavaSQLMapper {
             throw new Exception();
         }
         catch (Exception ex){
-            throw new TypeConversionFailedException("Could not convert "+the_class.getSimpleName()+" to SQL");
+            return null;
+            //throw new TypeConversionFailedException("Could not convert "+the_class.getSimpleName()+" to SQL");
         }
     }
 
