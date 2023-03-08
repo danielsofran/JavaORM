@@ -14,7 +14,7 @@ The purpose is to drastically reduce the number of code lines written for the mo
    5. Update data by primary key from a table
 4. Creates the ```ConnectionManager``` from database name, username, password and port which is by default *5432*
 
-## Databases
+## Database Compatibility
 1. PostgresSql
 
 ## Supports
