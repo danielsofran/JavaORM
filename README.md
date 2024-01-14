@@ -17,6 +17,14 @@ The purpose is to drastically reduce the number of code lines written for the mo
 ## Database Compatibility
 1. PostgresSql
 
+## Annotations
+1. ```@DBEntity``` - marks the class as being a table in the database
+2. ```@PK``` - marks the field as being the primary key of the table. Can be used on multiple fields to mark a composite primary key
+3. ```@AutoInc``` - marks the field as auto generated inside the DB
+4. ```@FK(Table, RefCol)``` - marks the annotated field in the current table as foreign key to the **column** specified in RefCol (string) of the **table** specified in Table (class)
+5. ```@DBNotNull``` - marks field as not null
+6. ```@Cascade```, ```@SetNull```, ```@NoAction```: foreign key update and delete rules
+
 ## Supports
 1. Basic data types
    - int, Integer
@@ -27,10 +35,9 @@ The purpose is to drastically reduce the number of code lines written for the mo
    - double, Double, float, Float
    - boolean, Boolean
    - LocalDateTime, LocalDate, LocalTime
-   - Enums
-2. Aggregated ```@DBEntity``` types as foreign keys
-3. Field foreign keys (non aggregated)
-4. Foreign key update and delete rules: ```@Cascade```, ```@SetNull```, ```@NoAction```
+   - Any cursom Enums
+2. Aggregated ```@DBEntity``` types as foreign keys (a class annotated as ```@DBEntity``` containing another class annotated as ```@DBEntity```)
+3. Field foreign keys (non aggregated), via ```@FK``` annotation
 5. Composite primary keys in non referenced tables (Not recommended)
 6. Inheritance from ```@DBEntity``` entities
 
@@ -42,7 +49,7 @@ The purpose is to drastically reduce the number of code lines written for the mo
 5. The primary key of an  ```@DBEntity``` must have a basic data type
 6. The values of primary keys required at Select/Update/Delete must follow the order in which they were declared inside the class 
 
-## Classes
+## External Classes
 - ```ORM```
 - ```ConnectionManager```: handles the url, username, password of the database
 - ```OrmException```: base exception to all ones that can be thrown inside the ORM
@@ -50,8 +57,8 @@ The purpose is to drastically reduce the number of code lines written for the mo
 - ```DataNotFoundExeption```: when selecting an entity which does not exist by primary key(s) 
 
 ## Examples
-- ORM: can be found in the package _tries.model_handle_
-- Entity declaration: can be found in package _models.demo_
+- ORM: can be found in the package [tries.model_handle](https://github.com/danielsofran/JavaORM/tree/master/tries/model_handle)
+- Entity declaration: can be found in package [models.demo](https://github.com/danielsofran/JavaORM/tree/master/models/demo)
 
 ## Usage
 Copy the _orm_ package into the top level of your module.
