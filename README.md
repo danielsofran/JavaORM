@@ -3,6 +3,11 @@
 This is a light implementation of Django ORM in Java.
 The purpose is to drastically reduce the number of code lines written for the models and repositories of a DDD application.
 
+## Requirements
+
+1. Java 8 or higher
+2. Postgres 15 or higher
+
 ## Features
 1. Creates the database tables based on the Java classes annotated with ```@DBEntity```
 2. Drops the database tables specified
@@ -47,22 +52,170 @@ The purpose is to drastically reduce the number of code lines written for the mo
 3. All the ```@DBEntity``` entities must have primary keys
 4. All the ```@DBEntity``` entities must have at most one auto increment field
 5. The primary key of an  ```@DBEntity``` must have a basic data type
-6. The values of primary keys required at Select/Update/Delete must follow the order in which they were declared inside the class 
+6. The values of primary keys required at Select/Update/Delete must follow the order in which they were declared inside the class
+7. In case of entities with multiple references, the references must be inserted in the DB in the natural order, from the ones with less references to the ones with more references. For example, if you have a class A with a reference to B and C, and B has a reference to C, you must insert first A, then B and finally C. The ORM will not check this for you.
+8. By default, the ORM will order the classes sent for creating or dropping tables in the order of their dependencies. But this may cause problems, so it's better to specify the classes in the right order.
 
 ## External Classes
-- ```ORM```
+- ```ORM```: Facade for DDL and DML operations. Requires a ```ConnectionManager``` instance
 - ```ConnectionManager```: handles the url, username, password of the database
 - ```OrmException```: base exception to all ones that can be thrown inside the ORM
 - ```DuplicateDataException```: when inserting an entity with non Auto Increment primary key
 - ```DataNotFoundExeption```: when selecting an entity which does not exist by primary key(s) 
 
 ## Examples
-- ORM: can be found in the package [tries.model_handle](https://github.com/danielsofran/JavaORM/tree/master/tries/model_handle)
-- Entity declaration: can be found in package [models.demo](https://github.com/danielsofran/JavaORM/tree/master/models/demo)
 
-## Usage
-Copy the _orm_ package into the top level of your module.
+### Basic usage
+```java
+// Initialize ORM
+ORM orm = new ORM(new ConnectionManager("TestORM", "postgres", "password", "localhost:5432"));
 
-# Warning
-Please don't use the other classes, even though they are public. This issue will be fixed soon.<br>
-The driver for PostgresSQL is mandatory and must be included.
+// Create tables
+orm.createTables(MData.class, Persoana.class, Angajat.class);
+
+// Insert data
+MData data = new MData();
+data.setData("test");
+data = orm.insert(data);
+
+// Complex relationship example
+Persoana manager = new Persoana();
+manager.setNume("Manager");
+manager = orm.insert(manager);
+
+Angajat employee = new Angajat();
+employee.setNume("Employee");
+employee.setSef(manager);
+employee = orm.insert(employee);
+
+// Cleanup
+orm.dropTables(Angajat.class, Persoana.class, MData.class);
+```
+
+### Repository example
+```java
+public class Repository<ID, E>{
+    private final Class<E> table;
+    private final ORM orm;
+    private final Validator<E> validator;
+
+    public Repository(Class<E> table, ConnectionManager connectionManager)
+    {
+        this.table = table;
+        orm = new ORM(connectionManager);
+        validator = null;
+    }
+
+    public Repository(Class<E> table, ConnectionManager connectionManager, Validator<E> validator)
+    {
+        this.table = table;
+        orm = new ORM(connectionManager);
+        this.validator = validator;
+    }
+
+    public E findOne(ID id) throws ValidationException, RepositoryException
+    {
+        if(id == null)
+            throw new ValidationException("Id must not be null");
+        try{
+            E rez = orm.select(table, id);
+            if(validator!=null)
+                validator.validate(rez);
+            return rez;
+        }
+        catch (DataNotFoundException ex){
+            throw new NotExistentException("No id "+id+" found in "+table.getSimpleName());
+        }
+        catch (ValidationException ex){
+            throw new ValidationException(table.getSimpleName()+"("+id+"): "+ex.getMessage());
+        }
+        catch (Exception ex){ throw new RepositoryException(ex.getMessage()); }
+    }
+
+    public E findOne(Predicate<E> predicate) throws ValidationException, RepositoryException
+    {
+        if(predicate == null)
+            throw new ValidationException("The predicate must not be null");
+        try{
+            List<E> rez = orm.select(table);
+            E ret = rez.stream().filter(predicate).findFirst().orElse(null);
+            if(ret == null)
+                throw new DataNotFoundException();
+            if(validator!=null)
+                validator.validate(ret);
+            return ret;
+        }
+        catch (DataNotFoundException ex){
+            throw new NotExistentException("No data found in "+table.getSimpleName());
+        }
+        catch (ValidationException ex){
+            throw new ValidationException(table.getSimpleName()+": "+ex.getMessage());
+        }
+        catch (Exception ex){ throw new RepositoryException(ex.getMessage()); }
+    }
+
+    public List<E> findAll() throws RepositoryException {
+        try {
+            return orm.select(table);
+        }
+        catch (Exception ex)
+        {
+            throw new RepositoryException(ex.getMessage());
+        }
+    }
+
+    public E save(E entity) throws RepositoryException, ValidationException
+    {
+        try{
+            if(validator != null)
+                validator.validate(entity);
+            return orm.insert(entity);
+        }
+        catch (DuplicateDataException ex) {
+            throw new DuplicatedElementException(ex.getMessage());
+        }
+        catch (ValidationException ve){
+            throw ve;
+        }
+        catch (Exception ex)
+        {
+            throw new RepositoryException(ex.getMessage());
+        }
+    }
+
+    public void delete(ID id) throws RepositoryException
+    {
+        if(id == null)
+            throw new ValidationException("Id must not be null");
+        try{
+            orm.delete(table, id);
+        }
+        catch (Exception ex)
+        {
+            throw new RepositoryException(ex.getMessage());
+        }
+    }
+
+    public void update(ID id, E entity) throws ValidationException, RepositoryException
+    {
+        if(id == null)
+            throw new ValidationException("Id must not be null");
+        if(entity == null)
+            throw new ValidationException("The entity must not be null");
+        if(validator!=null)
+            validator.validate(entity);
+        try{
+            orm.update(entity, id);
+        }
+        catch (Exception ex)
+        {
+            throw new RepositoryException(ex.getMessage());
+        }
+    }
+}
+```
+
+### Complete test examples
+
+- **ORM**: can be found in the package [tries.model_handle](https://github.com/danielsofran/JavaORM/tree/master/tries/model_handle)
+- **Entity types/declaration**: can be found in package [models.demo](https://github.com/danielsofran/JavaORM/tree/master/models/demo)
